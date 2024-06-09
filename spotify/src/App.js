@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import LoginPage from './pages/LoginPage';
-import Callback from './components/Callback';
 import { getTokenFromUrl } from './utils/auth';
 
 const App = () => {
@@ -33,7 +32,6 @@ const App = () => {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/dashboard" element={token ? <Dashboard token={token} /> : <Navigate to="/" />} />
-      <Route path="/callback" element={<Callback />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
