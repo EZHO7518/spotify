@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { loginUrl } from './auth';
+import { loginUrl } from '../utils/auth';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const LoginButton = styled.a`
   }
 `;
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <LoginContainer>
       <h1>Login to Spotify</h1>
@@ -33,4 +33,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

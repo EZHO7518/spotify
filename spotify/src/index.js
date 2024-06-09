@@ -6,11 +6,13 @@ import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import theme from './styles/theme';
 
+const basename = process.env.NODE_ENV === 'production' ? '/spotify' : '';
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router basename="/spotify">
+      <Router basename={basename}>
         <App />
       </Router>
     </ThemeProvider>

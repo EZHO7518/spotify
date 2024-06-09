@@ -1,13 +1,15 @@
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const clientId = 'afc9840c971641f3bd65ec60a2312b67';
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = process.env.NODE_ENV === 'production' 
+  ? 'http://EZHO7518.github.io/spotify/spotify/callback' 
+  : 'http://localhost:3000/callback';
 const scopes = [
   'user-top-read',
   'user-read-recently-played',
   'playlist-read-private',
   'user-read-playback-state',
   'user-modify-playback-state',
-  'user-library-read',
+  'user-library-read', // 필요할 수 있는 추가 스코프
 ];
 
 export const getTokenFromUrl = () => {

@@ -1,18 +1,35 @@
-import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import Login from './components/Login';
+import LoginPage from './pages/LoginPage';
 import { getTokenFromUrl } from './utils/auth';
 
 const App = () => {
-  const token = getTokenFromUrl().access_token;
+  const navigate = useNavigate();
+  const [token, setToken] = useState(localStorage.getItem('spotify_token'));
 
-  console.log('Token:', token);  // 디버깅 로그 추가
+  useEffect(() => {
+    const urlToken = getTokenFromUrl().access_token;
+
+    console.log('Token from URL:', urlToken);
+    console.log('Token from localStorage:', token);
+
+    if (urlToken) {
+      localStorage.setItem('spotify_token', urlToken);
+      setToken(urlToken);
+      window.location.hash = '';
+      navigate('/dashboard');
+    } else if (token) {
+      navigate('/dashboard');
+    } else {
+      navigate('/');
+    }
+  }, [token, navigate]);
 
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      {token && <Route path="/dashboard" element={<Dashboard token={token} />} />}
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/dashboard" element={token ? <Dashboard token={token} /> : <Navigate to="/" />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
