@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { FaPlay, FaPause, FaVolumeUp, FaVolumeDown } from 'react-icons/fa';
+import { FaPlay, FaPause, FaVolumeUp, FaVolumeDown, FaRedo } from 'react-icons/fa';
 
 const PlayerContainer = styled.div`
   display: flex;
@@ -58,6 +58,7 @@ const ControlButton = styled.button`
   color: white;
   font-size: 24px;
   cursor: pointer;
+  margin: 0 10px;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
@@ -88,6 +89,7 @@ const Player = ({ token, track }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [internalVolume, setInternalVolume] = useState(0.5);
+  const [repeatMode, setRepeatMode] = useState(false);
 
   useEffect(() => {
     const initializePlayer = () => {
@@ -175,6 +177,29 @@ const Player = ({ token, track }) => {
     playTrack();
   }, [player, track, deviceId, token]);
 
+  useEffect(() => {
+    if (player && deviceId) {
+      const setRepeatModeAsync = async () => {
+        try {
+          await fetch(`https://api.spotify.com/v1/me/player/repeat?state=${repeatMode ? 'track' : 'off'}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              device_id: deviceId
+            })
+          });
+        } catch (error) {
+          console.error('Error setting repeat mode:', error);
+        }
+      };
+
+      setRepeatModeAsync();
+    }
+  }, [repeatMode, player, deviceId, token]);
+
   const togglePlayPause = async () => {
     if (isPlaying) {
       await player.pause();
@@ -190,6 +215,10 @@ const Player = ({ token, track }) => {
     if (player) {
       await player.setVolume(newVolume);
     }
+  };
+
+  const toggleRepeatMode = () => {
+    setRepeatMode(!repeatMode);
   };
 
   return (
@@ -208,6 +237,9 @@ const Player = ({ token, track }) => {
       <CenterSection>
         <ControlButton onClick={togglePlayPause}>
           {isPlaying ? <FaPause /> : <FaPlay />}
+        </ControlButton>
+        <ControlButton onClick={toggleRepeatMode} style={{ color: repeatMode ? 'green' : 'white' }}>
+          <FaRedo />
         </ControlButton>
       </CenterSection>
       <RightSection>
