@@ -1,7 +1,7 @@
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const clientId = 'afc9840c971641f3bd65ec60a2312b67';
 const redirectUri = process.env.NODE_ENV === 'production' 
-  ? 'https://EZHO7518.github.io/spotify/callback' 
+  ? 'https://ezho7518.github.io/spotify/callback' 
   : 'http://localhost:3000/callback';
 const scopes = [
   'user-top-read',
