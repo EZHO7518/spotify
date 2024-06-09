@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import { getTokenFromUrl } from './utils/auth';
@@ -7,13 +7,14 @@ import { getTokenFromUrl } from './utils/auth';
 const App = () => {
   const token = getTokenFromUrl().access_token;
 
+  console.log('Token:', token);  // 디버깅 로그 추가
+
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        {token && <Route path="/dashboard" element={<Dashboard token={token} />} />}
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      {token && <Route path="/dashboard" element={<Dashboard token={token} />} />}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   );
 };
 

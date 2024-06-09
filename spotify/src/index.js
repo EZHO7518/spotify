@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router>
+      <Router basename="/spotify">
         <App />
       </Router>
     </ThemeProvider>

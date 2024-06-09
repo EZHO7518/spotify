@@ -50,7 +50,7 @@ const Dashboard = ({ token }) => {
   useEffect(() => {
     const fetchRecommendations = async () => {
       try {
-        console.log('Fetching top tracks...');
+        console.log('Fetching top tracks...');  // 디버깅 로그 추가
         const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
           headers: {
             Authorization: `Bearer ${token}`

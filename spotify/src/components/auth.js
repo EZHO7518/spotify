@@ -1,6 +1,6 @@
 const authEndpoint = 'https://accounts.spotify.com/authorize';
-const clientId = 'afc9840c971641f3bd65ec60a2312b67';  // 여기에 실제 Spotify 클라이언트 ID를 넣으세요
-const redirectUri = 'http://localhost:3000/';  // 리다이렉트 URI
+const clientId = 'afc9840c971641f3bd65ec60a2312b67';
+const redirectUri = 'http://localhost:3000/';
 const scopes = [
   'user-top-read',
   'user-read-recently-played',
