@@ -12,10 +12,6 @@ const App = () => {
     const params = getTokenFromUrl();
     const urlToken = params.access_token;
 
-    console.log('Params from URL:', params);
-    console.log('Token from URL:', urlToken);
-    console.log('Token from localStorage:', token);
-
     if (urlToken) {
       localStorage.setItem('spotify_token', urlToken);
       setToken(urlToken);
