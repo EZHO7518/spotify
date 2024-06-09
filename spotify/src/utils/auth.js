@@ -19,15 +19,15 @@ const scopes = [
 
 export const getTokenFromUrl = () => {
   const hash = window.location.hash.substring(1);
-  console.log('Hash:', hash); // 디버깅 로그 추가
+  console.log('Hash:', hash);
   const params = hash.split('&').reduce((acc, part) => {
     const [key, value] = part.split('=');
     acc[key] = decodeURIComponent(value);
     return acc;
   }, {});
-  console.log('Params:', params); // 디버깅 로그 추가
+  console.log('Params:', params);
   const token = params.access_token;
-  console.log('Extracted token:', token); // 디버깅 로그 추가
+  console.log('Extracted token:', token);
   return { access_token: token };
 };
 
