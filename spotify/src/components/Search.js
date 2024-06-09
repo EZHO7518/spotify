@@ -87,7 +87,7 @@ const Search = ({ token, setSelectedTrack }) => {
         <SearchContainer>
           <SearchInput
             type="text"
-            value={query || ''}  // query가 undefined가 아닌 빈 문자열을 사용하도록 설정
+            value={query || ''}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for a song..."
           />

@@ -13,7 +13,7 @@ const PlayerContainer = styled.div`
   padding: 10px 20px;
   background-color: ${({ theme }) => theme.colors.grey};
   border-top: 1px solid ${({ theme }) => theme.colors.primary};
-  z-index: 1000; /* 가장 앞으로 보내기 위한 z-index 값 */
+  z-index: 1000;
 `;
 
 const LeftSection = styled.div`
@@ -31,7 +31,7 @@ const TrackInfo = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
-  margin-left: 20px; /* AlbumCover 오른쪽 20px에 고정 */
+  margin-left: 20px;
 `;
 
 const TrackTitle = styled.div`
@@ -42,14 +42,14 @@ const TrackTitle = styled.div`
 const TrackArtist = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.primary};
-  margin-top: 5px; /* TrackTitle과 TrackArtist 사이에 한 줄을 띄움 */
+  margin-top: 5px;
 `;
 
 const CenterSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1; /* 중간에 고정시키기 위해 flex 속성 추가 */
+  flex: 1;
 `;
 
 const ControlButton = styled.button`
@@ -68,7 +68,7 @@ const RightSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 20px; /* 오른쪽 끝에서부터 20px 마진 */
+  margin-right: 20px;
 `;
 
 const VolumeControl = styled.div`
@@ -87,6 +87,7 @@ const Player = ({ token, track }) => {
   const [deviceId, setDeviceId] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  const [internalVolume, setInternalVolume] = useState(0.5);
 
   useEffect(() => {
     const initializePlayer = () => {
@@ -125,7 +126,7 @@ const Player = ({ token, track }) => {
         newPlayer.addListener('player_state_changed', state => {
           if (!state) return;
           setIsPlaying(!state.paused);
-          setVolume(state.volume);
+          setInternalVolume(state.volume);
         });
 
         newPlayer.connect();
@@ -185,7 +186,10 @@ const Player = ({ token, track }) => {
   const changeVolume = async (e) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
-    await player.setVolume(newVolume);
+    setInternalVolume(newVolume);
+    if (player) {
+      await player.setVolume(newVolume);
+    }
   };
 
   return (
@@ -214,7 +218,7 @@ const Player = ({ token, track }) => {
             min="0"
             max="1"
             step="0.01"
-            value={volume || 0.5}  // volume이 undefined가 아닌 기본값을 사용하도록 설정
+            value={internalVolume}
             onChange={changeVolume}
           />
           <FaVolumeUp />
