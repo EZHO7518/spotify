@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Login from './components/Login';
+import React from 'react';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import Callback from './components/Callback';
+import Login from './components/Login';
+import { getTokenFromUrl } from './utils/auth';
 
 const App = () => {
-  const [token, setToken] = useState('');
-
-  useEffect(() => {
-    const storedToken = window.localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-    }
-  }, []);
+  const token = getTokenFromUrl().access_token;
 
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/callback" element={<Callback />} />
-      <Route path="/dashboard" element={<Dashboard token={token} />} />
-    </Routes>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        {token && <Route path="/dashboard" element={<Dashboard token={token} />} />}
+      </Routes>
+    </Router>
   );
 };
 
