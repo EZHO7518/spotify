@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/spotify/static/js/main.c360a0eb.js",
+    "main.js": "/spotify/static/js/main.624cd16a.js",
     "index.html": "/spotify/index.html",
-    "main.c360a0eb.js.map": "/spotify/static/js/main.c360a0eb.js.map"
+    "main.624cd16a.js.map": "/spotify/static/js/main.624cd16a.js.map"
   },
   "entrypoints": [
-    "static/js/main.c360a0eb.js"
+    "static/js/main.624cd16a.js"
   ]
 }
