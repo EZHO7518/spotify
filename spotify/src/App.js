@@ -17,13 +17,16 @@ const App = () => {
     console.log('Token from localStorage:', token);
 
     if (urlToken) {
+      console.log('Setting token from URL');
       localStorage.setItem('spotify_token', urlToken);
       setToken(urlToken);
       window.location.hash = '';
       navigate('/dashboard');
     } else if (token) {
+      console.log('Using token from localStorage');
       navigate('/dashboard');
     } else {
+      console.log('No token found, navigating to /');
       navigate('/');
     }
   }, [token, navigate]);
