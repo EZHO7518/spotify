@@ -17,6 +17,7 @@ const scopes = [
 
 export const getTokenFromUrl = () => {
   const hash = window.location.hash.substring(1);
+  console.log('Hash:', hash); // 디버깅 로그 추가
   const params = hash.split('&').reduce((acc, part) => {
     const [key, value] = part.split('=');
     if (key && value) {
@@ -24,7 +25,9 @@ export const getTokenFromUrl = () => {
     }
     return acc;
   }, {});
+  console.log('Params:', params); // 디버깅 로그 추가
   const token = params.access_token;
+  console.log('Extracted token:', token); // 디버깅 로그 추가
   return { access_token: token };
 };
 
