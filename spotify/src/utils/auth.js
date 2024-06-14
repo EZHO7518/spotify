@@ -15,6 +15,10 @@ const scopes = [
   'user-read-email'
 ];
 
+console.log("Auth Endpoint:", authEndpoint);
+console.log("Client ID:", clientId);
+console.log("Redirect URI:", redirectUri);
+
 export const getTokenFromUrl = () => {
   const hash = window.location.hash.substring(1);
   const params = hash.split('&').reduce((acc, part) => {
@@ -24,7 +28,10 @@ export const getTokenFromUrl = () => {
     }
     return acc;
   }, {});
-  return { access_token: params.access_token };
+  console.log('Params:', params); // Debugging log
+  const token = params.access_token;
+  console.log('Extracted token:', token); // Debugging log
+  return { access_token: token };
 };
 
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scopes.join('%20')}&show_dialog=true`;
