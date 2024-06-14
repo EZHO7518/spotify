@@ -1,6 +1,6 @@
-const authEndpoint = 'https://accounts.spotify.com/authorize';
-const clientId = 'afc9840c971641f3bd65ec60a2312b67';
-const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+const authEndpoint = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT || 'https://accounts.spotify.com/authorize';
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID || 'afc9840c971641f3bd65ec60a2312b67';
+const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI || 'http://localhost:3000/callback';
 const scopes = [
   'user-top-read',
   'user-read-recently-played',
