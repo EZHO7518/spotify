@@ -21,7 +21,9 @@ export const getTokenFromUrl = () => {
   const hash = window.location.hash.substring(1);
   const params = hash.split('&').reduce((acc, part) => {
     const [key, value] = part.split('=');
-    acc[key] = decodeURIComponent(value);
+    if (key && value) {
+      acc[key] = decodeURIComponent(value);
+    }
     return acc;
   }, {});
   const token = params.access_token;
