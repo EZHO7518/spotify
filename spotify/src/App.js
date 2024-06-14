@@ -7,29 +7,30 @@ import { getTokenFromUrl } from './utils/auth';
 
 const App = () => {
   const navigate = useNavigate();
-  const [token, setToken] = useState(localStorage.getItem('spotify_token'));
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const params = getTokenFromUrl();
     const urlToken = params.access_token;
+    const storedToken = localStorage.getItem('spotify_token');
 
     if (urlToken) {
       localStorage.setItem('spotify_token', urlToken);
       setToken(urlToken);
       window.location.hash = '';
       navigate('/dashboard');
-    } else if (token) {
-      navigate('/dashboard');
+    } else if (storedToken) {
+      setToken(storedToken);
     } else {
       navigate('/');
     }
-  }, [token, navigate]);
+  }, [navigate]);
 
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/callback" element={<Callback />} />
       <Route path="/dashboard" element={token ? <Dashboard token={token} /> : <Navigate to="/" />} />
+      <Route path="/callback" element={<Callback />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
