@@ -22,7 +22,6 @@ const Callback = () => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log('User data:', data);
         if (data.product !== 'premium') {
           alert('You need a Spotify Premium account to use this app.');
           window.localStorage.removeItem('spotify_token');
@@ -32,7 +31,6 @@ const Callback = () => {
         }
       })
       .catch(error => {
-        console.error('Error fetching user data:', error);
         alert('Failed to authenticate. Please try again.');
         window.localStorage.removeItem('spotify_token');
         navigate('/');
