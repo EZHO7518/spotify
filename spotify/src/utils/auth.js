@@ -1,5 +1,5 @@
-const authEndpoint = 'https://accounts.spotify.com/authorize';
-const clientId = 'afc9840c971641f3bd65ec60a2312b67';
+const authEndpoint = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
+const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 const scopes = [
   'user-top-read',
@@ -24,8 +24,7 @@ export const getTokenFromUrl = () => {
     }
     return acc;
   }, {});
-  const token = params.access_token;
-  return { access_token: token };
+  return { access_token: params.access_token };
 };
 
-export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${scopes.join('%20')}&show_dialog=true`;
+export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE}&scope=${scopes.join('%20')}&show_dialog=true`;
