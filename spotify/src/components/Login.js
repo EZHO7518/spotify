@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CLIENT_ID = 'afc9840c971641f3bd65ec60a2312b67';
-const REDIRECT_URI = 'http://localhost:3000/callback';
+const REDIRECT_URI = 'https://ezho7518.github.io/spotify/callback';
 const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 const RESPONSE_TYPE = 'token';
 const SCOPES = [
