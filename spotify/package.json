@@ -2,7 +2,7 @@
   "name": "spotify",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ezho7518.github.io/spotify",
+  "homepage": "https://ezho7518.github.io/spotify/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
